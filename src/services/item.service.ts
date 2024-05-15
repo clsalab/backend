@@ -1,10 +1,10 @@
 import { Car } from "../interfaces/car.interface";
-import ItemModel from "../models/nosql/item.model";
+import CarsModel from "../models/nosql/item.model";
 
-const inserCars = async (item: Car) => {
+const inserCar = async (item: Car) => {
     try {
         // Intenta crear un nuevo ítem usando el modelo de Mongoose
-        const respuestaInsercion = await ItemModel.create(item);
+        const respuestaInsercion = await CarsModel.create(item);
         return respuestaInsercion;
     } catch (error: any) {
         // Si ocurre un error de validación de Mongoose
@@ -20,23 +20,23 @@ const inserCars = async (item: Car) => {
 };
 
 const getCars = async () => {
-    const responseItem = await ItemModel.find({});
+    const responseItem = await CarsModel.find({});
     return responseItem;
 };
 
 const getCar = async (id:string) => {
-    const responseItem = await ItemModel.findOne({ _id: id });
+    const responseItem = await CarsModel.findOne({ _id: id });
     return responseItem;
 };
 
 const updateCar = async (id: string, data: Car ) => {
-    const responseItem = await ItemModel.findOneAndUpdate({ _id:id}, data, {
+    const responseItem = await CarsModel.findOneAndUpdate({ _id:id}, data, {
         new:true,
     });
     return responseItem;
 }
 const deleteCar = async (id:string)=> {
-    const responseItem = await ItemModel.deleteOne({ _id: id });
+    const responseItem = await CarsModel.deleteOne({ _id: id });
     return responseItem;
 }
-export { inserCars, getCars, getCar, updateCar, deleteCar};
+export { inserCar, getCars, getCar, updateCar, deleteCar};

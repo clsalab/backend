@@ -1,15 +1,15 @@
 import { Schema, model, } from "mongoose";
-import { User } from "../../interfaces/user.interface";
+import { Teacher } from "../../interfaces/teacher.interface";
 const mongooseDelete = require("mongoose-delete");
 
 
-const UserSchema = new Schema<User>(
+const TeacherSchema = new Schema<Teacher>(
     {
         username: { type: String, required: true },
         useremail: { type: String, required: true, unique: true },
         userpassword: { type: String, required: true, select: false },
         userestado: { type: String, enum: ["activo", "inactivo"], default: "activo" },
-        userroles: { type: [{ type: String, enum: ["user", "student", "teacher", "admin"] }], default: ["user"] },
+        userroles: { type: [{ type: String, enum: ["user", "student", "teacher", "admin"] }], default: ["teacher"] },
         tipoDocumento: { type: String, required: true },
         fechaNacimiento: { type: Date, required: true },
         numeroDocumento: { type: Number, required: true, unique: true },
@@ -21,8 +21,6 @@ const UserSchema = new Schema<User>(
         nombres: { type: String, required: true },
         apellidos: { type: String, required: true },
         sexo: { type: String, required: true },
-        direccion: { type: String, required: true },
-        celular: { type: String, required: true },
         paisNacimiento: { type: String, required: true },
         departamentoNacimiento: { type: String, required: true },
         municipioNacimiento: { type: String, required: true },
@@ -34,8 +32,8 @@ const UserSchema = new Schema<User>(
     }
 );
 
-UserSchema.plugin(mongooseDelete, { deleted: true });
+TeacherSchema.plugin(mongooseDelete, { overrideMethods: "all" });
 
-const usersModel = model<User>('users', UserSchema);
+const teachersModel = model<Teacher>('teachers', TeacherSchema);
 
-export default usersModel;
+export default teachersModel;

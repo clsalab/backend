@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { registerNewUser, loginUser } from "../services/auth.service";
 import { matchedData } from "express-validator";
+import { RequestExt } from "../interfaces/req-ext.interface";
 
 // Controlador para el registro de usuarios
-const registerCtrl = async (req: Request, res: Response) => {
+const registerCtrl = async (req: RequestExt, res: Response) => {
     try {
         // Extraer y validar los datos de la solicitud usando matchedData
         const requestData = matchedData(req) as any;
@@ -13,10 +14,11 @@ const registerCtrl = async (req: Request, res: Response) => {
         
         // Enviar la respuesta al cliente
         res.send(responseUser);
-    } catch (error) {
+    } catch (errors) {
         // Manejar errores
-        console.error("Error en el registro de usuario:", error);
+        console.error("Error en el registro de usuario:", errors);
         res.status(500).send("Error interno del servidor.");
+        res.status(400).send("Error  validación de datos - INVALID VALUE.");
     }
 };
 

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { handleHttp } from "../utils/error.handler";
-import { inserCars, getCar, getCars, updateCar, deleteCar } from "../services/item.service"; 
+import { inserCar, getCar, getCars, updateCar, deleteCar } from "../services/item.service"; 
 
 const getItem = async ({ params }: Request, res: Response) => {
     try {
@@ -36,7 +36,7 @@ const updateItem = async ({ params, body }: Request, res: Response) => {
 const postItem = async ({ body }: Request, res: Response) => {
     try {
         
-        const responseItem = await inserCars(body);
+        const responseItem = await inserCar(body);
         res.send(responseItem);
     } catch (e: any) { // Añade ': any' después de 'e'
         if (e.name === 'ValidationError') {

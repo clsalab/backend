@@ -38,5 +38,14 @@ const checkAdmin = async (req: RequestExt, res: Response, next: NextFunction) =>
         console.error("Error al verificar el rol de administrador:", error);
         res.status(500).send("Error interno del servidor.");
     }
-};
-export default checkAdmin;
+
+
+
+
+}
+
+
+
+
+
+export default checkAdmin ;

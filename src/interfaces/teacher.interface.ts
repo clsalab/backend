@@ -1,6 +1,6 @@
-import { Auth } from "./auth.interface";
+import { User } from "./user.interface";
 
-export interface User extends Auth{
+export interface Teacher extends User{
     useremail: string;
     userpassword: string;
     username:string;
@@ -17,8 +17,6 @@ export interface User extends Auth{
     nombres: string;
     apellidos: string;
     sexo: string;
-    direccion: string;
-    celular: string;
     paisNacimiento: string;
     departamentoNacimiento: string;
     municipioNacimiento: string;

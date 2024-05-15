@@ -22,10 +22,17 @@ import { generateToken } from "../utils/jwt.handle";
     }
 }; */
 
-const registerNewUser = async ({ useremail, userpassword, username, userroles }: User) => {
+const registerNewUser = async ({ useremail, userpassword, username, userroles, tipoDocumento, fechaNacimiento, numeroDocumento, documentoIdentidad, paisExpedicion, departamentoExpedicion, municipioExpedicion, fechaExpedicion, nombres, apellidos, sexo,direccion, celular, paisNacimiento, departamentoNacimiento, municipioNacimiento, estrato }: User) => {
     try {
-        console.log("Datos recibidos para el registro:", { useremail, userpassword, username, userroles });
+        console.log("Datos recibidos para el registro:", { useremail, userpassword, username, userroles, tipoDocumento, fechaNacimiento, numeroDocumento, documentoIdentidad, paisExpedicion, departamentoExpedicion, municipioExpedicion, fechaExpedicion, nombres, apellidos, sexo, paisNacimiento, departamentoNacimiento, municipioNacimiento, estrato });
 
+        // Verificar si el número de documento ya existe en la base de datos
+        const existingUser = await UserModel.findOne({ numeroDocumento });
+        if (existingUser) {
+            return "DUPLICATE_DOCUMENT_NUMBER";
+        }
+
+        // Verificar si el correo electrónico ya está registrado
         const checkIs = await UserModel.findOne({ useremail });
         if (checkIs) return "ALREADY_USER";
         
@@ -34,7 +41,24 @@ const registerNewUser = async ({ useremail, userpassword, username, userroles }:
             username,
             useremail,
             userpassword: passHash,
-            userroles: userroles ? [userroles] : ["user"], // Si se proporciona userroles, úsalo, de lo contrario, usa el valor por defecto "user"
+            userroles: userroles ? [userroles] : ["user"],
+            tipoDocumento,
+            fechaNacimiento,
+            numeroDocumento,
+            documentoIdentidad,
+            paisExpedicion,
+            departamentoExpedicion,
+            municipioExpedicion,
+            fechaExpedicion,
+            nombres,
+            apellidos,
+            sexo,
+            direccion,
+            celular,
+            paisNacimiento,
+            departamentoNacimiento,
+            municipioNacimiento,
+            estrato,
         };
         const registerNewUser = await UserModel.create(newUser);
         console.log("Usuario registrado exitosamente:", registerNewUser);

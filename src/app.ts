@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3001
 
 /* Inciciamos las Rutas */
 /* localhot/api/ */
-app.use(router );
+app.use(router);
 
 app.listen(PORT, () => console.log(`Listo por el puerto ${PORT}`))
 
