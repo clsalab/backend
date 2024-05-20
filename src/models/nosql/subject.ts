@@ -8,7 +8,6 @@ const SubjectSchema = new Schema<Subject>(
     tipoAsignatura: {type: String, required: true  },
     descriptionAsignatura: { type: String, required: true },
     nombreAsignatura: { type: String, required: true },
-    gruposAsignatura: { type: String, required: true }, 
 },
 {
     timestamps: true,

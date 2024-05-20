@@ -83,4 +83,4 @@ const deleteItemCampus = async (req: RequestExt, res: Response) => {
 }
 
     
-export { getItemsCampus, getItemCampus, inserCampus, updateItemCampus, deleteItemCampus }; 
+export { getItemsCampus, getItemCampus, postItemCampus, updateItemCampus, deleteItemCampus }; 

@@ -1,10 +1,10 @@
-import { Product } from "../interfaces/product.interface";
-import ProductModel from "../models/nosql/product";
+import { Program } from "../interfaces/program";
+import programModel from "../models/nosql/program";
 
-const inserProduct = async (item: Product) => {
+const inserProgram = async (item: Program) => {
     try {
         /* Intenta crear un nuevo ítem usando el modelo de Mongoose */
-        const respuestaInsercion = await ProductModel.create(item);
+        const respuestaInsercion = await programModel.create(item);
         return respuestaInsercion;
     } catch (error: any) {
       /*   Si ocurre un error de validación de Mongoose */
@@ -19,24 +19,24 @@ const inserProduct = async (item: Product) => {
     }
 };
 
-const getProducts = async () => {
-    const responseItem = await ProductModel.find({});
+const getPrograms = async () => {
+    const responseItem = await programModel.find({});
     return responseItem;
 };
 
-const getProduct = async (id:string) => {
-    const responseItem = await ProductModel.findOne({ _id:id });
+const getProgram = async (id:string) => {
+    const responseItem = await programModel.findOne({ _id:id });
     return responseItem;
 };
-const updateProduct = async (id: string, data: Product ) => {
-    const responseItem = await ProductModel.findOneAndUpdate({ _id:id}, data, {
+const updateProgram = async (id: string, data: Program ) => {
+    const responseItem = await programModel.findOneAndUpdate({ _id:id}, data, {
         new:true,
     });
     return responseItem;
 }
-const deleteProduct = async (id:string)=> {
-    const responseItem = await ProductModel.deleteOne({ _id: id });
+const deleteProgram = async (id:string)=> {
+    const responseItem = await programModel.deleteOne({ _id: id });
     return responseItem;
 }
 
-export { inserProduct, getProducts, getProduct, updateProduct, deleteProduct };
+export { inserProgram, getPrograms, getProgram, updateProgram, deleteProgram };

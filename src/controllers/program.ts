@@ -1,48 +1,52 @@
 import { Response } from "express";
 import { matchedData } from "express-validator";
-import  usersModel  from "../models/nosql/user";
+import  programModel  from "../models/nosql/program";
 import { handleHttp } from "../utils/error.handler";
 import { RequestExt } from "../interfaces/req-ext.interface";
-import { deleteUser, getUser, updateUser } from "../services/user.service";
+import { deleteProgram, getProgram, getPrograms, inserProgram, updateProgram } from "../services/program.service";
 
 
 // Obtener una lista de la BD
 const getItems = async (req: RequestExt, res: Response) => {
     try {
         const user = req.user;
-        const data = await usersModel.find({});
+        const data = await getPrograms();
         res.send({ data, user });
     } catch (e) {
-        handleHttp(res, "ERROR_GET_USERS");
+        handleHttp(res, "ERROR_GET_ProgramS");
     }
 };
+
+
 
 // Obtener un detalle de la BD
 const getItem = async ({ params }: RequestExt, res: Response) => {
     try {
         const { id } = params;
-        const response = await getUser(id);
+        const response = await getProgram(id);
         const data = response ? response : "NOT_FOUND";
         res.send(data);
     } catch (e) {
-        handleHttp(res, 'ERROR_GET_USER');
+        handleHttp(res, 'ERROR_GET_Program');
     }
 };
 
 
 
 // Insertar un registro en la BD
-const createItem = async (req: RequestExt, res: Response) => {
+const postItem = async ({ body }: RequestExt, res: Response) => {
     try {
-        const body = matchedData(req); // Limpiar la data
-        const user = req.user;
-        const data = new usersModel(body);
-        await data.save();
-        res.send({ data, user });
-    } catch (e) {
-        handleHttp(res, "ERROR_CREATE_USER");
+        
+        const responseItem = await inserProgram(body);
+        res.send(responseItem);
+    } catch (e: any) { // Añade ': any' después de 'e'
+        if (e.name === 'ValidationError') {
+            handleHttp(res, 'VALIDATION_ERROR', e.message);
+        } else {
+            handleHttp(res, 'ERROR_POST_ITEM', e);
+        }
     }
-};
+}
 
 
 const updateItem = async (req: RequestExt, res: Response) => {
@@ -50,11 +54,11 @@ const updateItem = async (req: RequestExt, res: Response) => {
         const { id } = req.params; // Obtener el ID del parámetro de la URL
         const { body } = req; // Obtener los datos de la solicitud
 
-        // Acceder a req.user para obtener los datos del usuario que realiza la actualización
+        // Acceder a req.Program para obtener los datos del usuario que realiza la actualización
         const updatingUser = req.user;
 
         // Realizar la actualización y obtener los datos actualizados
-        const response = await updateUser(id, body);
+        const response = await updateProgram(id, body);
 
         if (!response) {
             return res.status(404).send("NOT_FOUND");
@@ -63,7 +67,7 @@ const updateItem = async (req: RequestExt, res: Response) => {
         // Enviar los datos del usuario actualizado y del usuario que realizó la actualización
         res.send({ updatedUser: response, updatingUser });
     } catch (e: any) {
-        handleHttp(res, 'ERROR_UPDATE_USER', e);
+        handleHttp(res, 'ERROR_UPDATE_Program', e);
     }
 };
 
@@ -73,13 +77,13 @@ const deleteItem = async (req: RequestExt, res: Response) => {
     try {
         const { id } = req.params;
         const updatingUser = req.user;
-        const response = await deleteUser(id);
+        const response = await deleteProgram(id);
         const data = response ? response : "NOT_FOUND";
-        res.send({ deleteUser: data, updatingUser } ); // Corregir "updateUser" a "updatingUser"
+        res.send({ deleteProgram: data, updatingUser } ); // Corregir "updateUser" a "updatingUser"
     } catch (e) {
-        handleHttp(res, 'ERROR_DELETE_USER');
+        handleHttp(res, 'ERROR_DELETE_Program');
     }
 }
 
     
-export { getItems, getItem, createItem, updateItem, deleteItem }; 
+export { getItems, getItem, postItem, updateItem, deleteItem }; 

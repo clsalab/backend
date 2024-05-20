@@ -6,6 +6,4 @@ export interface Subject extends Program{
     tipoAsignatura?: string[];
     intensidadHora?: string;
     descriptionAsignatura?: string[];
-    docente?: string[];
-    gruposAsignatura?: string[];
 }

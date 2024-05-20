@@ -6,5 +6,4 @@ export interface Campus {
     descriptionSede: string;
     municipio: string;
     departamento: string;
-    programas: string;
 }

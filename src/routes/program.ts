@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getItem, getItems, updateItem, deleteItem } from "../controllers/user";
+import { getItem, getItems, postItem, updateItem, deleteItem } from "../controllers/program";
 import { checkJwt } from "../middleware/sesion";
-import { validatorCreateUser, validatorGetUser } from "../validators/user";
 import checkTeacher from "../middleware/rolTeacher";
+import { validatorCreateProgram, validatorGetProgram } from "../validators/program";
 
 const router = Router()
 /* 
@@ -14,7 +14,8 @@ router.get('/:id', getItem);
 
 
 // Rutas para crear, actualizar y eliminar profesores solo accesibles para administradores
-router.put('/:id', checkJwt, checkTeacher, validatorGetUser, validatorCreateUser, updateItem);
+router.post('/', validatorCreateProgram, postItem);
+router.put('/:id', checkJwt, checkTeacher, validatorGetProgram, validatorCreateProgram, updateItem);
 router.delete('/:id', checkJwt, checkTeacher, deleteItem);
 
 

@@ -8,8 +8,7 @@ const CampusSchema = new Schema<Campus>(
     descriptionSede: { type: String, required: true },
     nombreSede: { type: String, required: true },
     municipio: { type: String, required: true }, 
-    departamento: { type: String, require: false },   
-    programas: { type: String, require: false }   
+    departamento: { type: String, require: true },     
 },
 {
     timestamps: true,

@@ -6,87 +6,6 @@ import { RequestExt } from "../interfaces/req-ext.interface";
 import { deleteUser, getUser, updateUser } from "../services/user.service";
 import { inserSubject, getSubject, updateSubject, deleteSubject } from "../services/subject.service";
 import SubjectModel from "../models/nosql/subject";
-import { deleteStudent, getStudent, getStudents, inserStudent, updateStudent } from "../services/student.service";
-
-
-// Obtener una lista Estudiantes de la BD
-const getItemsStudents = async (req: RequestExt, res: Response) => {
-    try {
-        const user = req.user;
-        const data = await getStudents();
-        res.send({ data, user });
-    } catch (e) {
-        handleHttp(res, "ERROR_GET_SUBJECTS");
-    }
-};
-
-
-// Obtener un estudiante de la BD
-const getItemStudent = async ({ params }: RequestExt, res: Response) => {
-    try {
-        const { id } = params;
-        const response = await getStudent(id);
-        const data = response ? response : "NOT_FOUND";
-        res.send(data);
-    } catch (e) {
-        handleHttp(res, 'ERROR_GET_STUDENT');
-
-    }
-};
-
-    // Insertar un registro estudiante en la BD
-    const postItemStudent = async ({ body }: RequestExt, res: Response) => {
-        try {
-            
-            const responseItem = await inserStudent(body);
-            res.send(responseItem);
-        } catch (e: any) {
-            if (e.name === 'ValidationError') {
-                handleHttp(res, 'VALIDATION_ERROR', e.message);
-            } else {
-                handleHttp(res, 'ERROR_POST_ITEM_SUBJECT', e);
-            }
-        }
-    };
-
-
-const updateItemStudent = async (req: RequestExt, res: Response) => {
-    try {
-        const { id } = req.params; // Obtener el ID del parámetro de la URL
-        const { body } = req; // Obtener los datos de la solicitud
-
-        // Acceder a req.user para obtener los datos del usuario que realiza la actualización
-        const updatingUser = req.user;
-
-        // Realizar la actualización y obtener los datos actualizados
-        const response = await updateStudent(id, body);
-
-        if (!response) {
-            return res.status(404).send("NOT_FOUND");
-        }
-
-        // Enviar los datos del usuario actualizado y del usuario que realizó la actualización
-        res.send({ updatedSubject: response, updatingUser });
-    } catch (e: any) {
-        handleHttp(res, 'ERROR_UPDATE_STUDENT', e);
-    }
-};
-
-
-// Eliminar un registro Estudiante de la BD
-const deleteItemStudent = async (req: RequestExt, res: Response) => {
-    try {
-        const { id } = req.params;
-        const updatingUser = req.user;
-        const response = await deleteStudent(id);
-        const data = response ? response : "NOT_FOUND";
-        res.send({ deleteSubject: data, updatingUser } ); // Corregir "updateUser" a "updatingUser"
-    } catch (e) {
-        handleHttp(res, 'ERROR_DELETE_STUDENT');
-    }
-};
-
-
 
 
 
@@ -255,4 +174,4 @@ const deleteItem = async (req: RequestExt, res: Response) => {
 }
 
     
-export { getItemsStudents, getItemStudent, inserStudent, updateItemStudent, deleteItemStudent, getItemsSubjects, getItemSubject,postItemSubject, updateItemSubjects, deleteItemSubject, getItems, getItem, createItem, updateItem, deleteItem }; 
+export { getItemsSubjects, getItemSubject,postItemSubject, updateItemSubjects, deleteItemSubject, getItems, getItem, createItem, updateItem, deleteItem }; 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getItemCampus, getItemsCampus, updateItemCampus, deleteItemCampus } from "../controllers/campus";
+import { getItemCampus, getItemsCampus, postItemCampus, updateItemCampus, deleteItemCampus } from "../controllers/campus";
 import { checkJwt } from "../middleware/sesion";
 import { validatorCreateCampus, validatorGetCampus } from "../validators/campus";
 import checkTeacher from "../middleware/rolTeacher";
@@ -14,6 +14,7 @@ router.get('/:id', getItemCampus);
 
 
 // Rutas para crear, actualizar y eliminar profesores solo accesibles para administradores
+router.post('/',validatorCreateCampus, postItemCampus);
 router.put('/:id', checkJwt, checkTeacher, validatorGetCampus, validatorCreateCampus, updateItemCampus);
 router.delete('/:id', checkJwt, checkTeacher, deleteItemCampus);
 

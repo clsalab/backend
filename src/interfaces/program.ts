@@ -6,5 +6,4 @@ export interface Program extends Campus{
     tipoPrograma: string;
     intensidadHora?: string;
     descripcionPrograma?: string[];
-    Asignaturas?: string;
 }

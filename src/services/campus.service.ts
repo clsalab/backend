@@ -1,10 +1,10 @@
-import { Car } from "../interfaces/car.interface";
-import CarsModel from "../models/nosql/item.model";
+import { Campus } from "../interfaces/campus";
+import campusModel from "../models/nosql/campus";
 
-const inserCampus = async (item: Car) => {
+const inserCampus = async (item: Campus) => {
     try {
         // Intenta crear un nuevo ítem usando el modelo de Mongoose
-        const respuestaInsercion = await CarsModel.create(item);
+        const respuestaInsercion = await campusModel.create(item);
         return respuestaInsercion;
     } catch (error: any) {
         // Si ocurre un error de validación de Mongoose
@@ -20,23 +20,23 @@ const inserCampus = async (item: Car) => {
 };
 
 const getCampuss = async () => {
-    const responseItem = await CarsModel.find({});
+    const responseItem = await campusModel.find({});
     return responseItem;
 };
 
 const getCampus = async (id:string) => {
-    const responseItem = await CarsModel.findOne({ _id: id });
+    const responseItem = await campusModel.findOne({ _id: id });
     return responseItem;
 };
 
-const updateCampus = async (id: string, data: Car ) => {
-    const responseItem = await CarsModel.findOneAndUpdate({ _id:id}, data, {
+const updateCampus = async (id: string, data: Campus ) => {
+    const responseItem = await campusModel.findOneAndUpdate({ _id:id}, data, {
         new:true,
     });
     return responseItem;
 }
 const deleteCampus = async (id:string)=> {
-    const responseItem = await CarsModel.deleteOne({ _id: id });
+    const responseItem = await campusModel.deleteOne({ _id: id });
     return responseItem;
 }
 export { inserCampus, getCampuss, getCampus, updateCampus, deleteCampus};
