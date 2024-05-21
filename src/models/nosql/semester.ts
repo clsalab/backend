@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
-import { Semester } from "../../interfaces/semester";
+import { ProgramSemester } from "../../interfaces/semester";
 import MongooseDelete from "mongoose-delete";
 
-const SemesterSchema = new Schema<Semester>(
+const SemesterSchema = new Schema<ProgramSemester>(
 {
     codigoSemestre: { type: Number, required:true },
     semestre: {type: String, required: true  },
@@ -18,6 +18,6 @@ const SemesterSchema = new Schema<Semester>(
 
 SemesterSchema.plugin(MongooseDelete, { overrideMethods: "all" });
 
-const semesterModel = model<Semester>('semestre', SemesterSchema);
+const semesterModel = model<ProgramSemester>('semestre', SemesterSchema);
 
 export default semesterModel;

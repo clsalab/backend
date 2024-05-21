@@ -1,7 +1,7 @@
-import { Semester } from "../interfaces/semester";
+import { ProgramSemester } from "../interfaces/semester";
 import semesterModel from "../models/nosql/semester";
 
-const inserSemester = async (item: Semester) => {
+const inserSemester = async (item: ProgramSemester) => {
     try {
         // Intenta crear un nuevo ítem usando el modelo de Mongoose
         const respuestaInsercion = await semesterModel.create(item);
@@ -29,7 +29,7 @@ const getSemester = async (id:string) => {
     return responseItem;
 };
 
-const updateSemester = async (id: string, data: Semester ) => {
+const updateSemester = async (id: string, data: ProgramSemester ) => {
     const responseItem = await semesterModel.findOneAndUpdate({ _id:id}, data, {
         new:true,
     });

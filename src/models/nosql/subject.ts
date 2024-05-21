@@ -1,9 +1,10 @@
 import { Schema, model } from "mongoose";
-import { Subject } from "../../interfaces/subject";
+import { ProgramSubject } from "../../interfaces/subject";
 import MongooseDelete from "mongoose-delete";
 
-const SubjectSchema = new Schema<Subject>(
+const SubjectSchema = new Schema<ProgramSubject>(
 {
+    
     codigoAsignatura: { type: Number, required:true },
     tipoAsignatura: {type: String, required: true  },
     descriptionAsignatura: { type: String, required: true },
@@ -18,6 +19,6 @@ const SubjectSchema = new Schema<Subject>(
 
 SubjectSchema.plugin(MongooseDelete, { overrideMethods: "all" });
 
-const subjectModel = model<Subject>('asignatura', SubjectSchema);
+const subjectModel = model<ProgramSubject>('asignatura', SubjectSchema);
 
 export default subjectModel;

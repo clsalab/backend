@@ -1,7 +1,7 @@
-import { Subject } from "../interfaces/subject";
+import { ProgramSubject } from "../interfaces/subject";
 import SubjectModel from "../models/nosql/subject";
 
-const inserSubject = async (item: Subject) => {
+const inserSubject = async (item: ProgramSubject) => {
     try {
         // Intenta crear un nuevo ítem usando el modelo de Mongoose
         const respuestaInsercion = await SubjectModel.create(item);
@@ -29,7 +29,7 @@ const getSubject = async (id:string) => {
     return responseItem;
 };
 
-const updateSubject = async (id: string, data: Subject ) => {
+const updateSubject = async (id: string, data: ProgramSubject ) => {
     const responseItem = await SubjectModel.findOneAndUpdate({ _id:id}, data, {
         new:true,
     });

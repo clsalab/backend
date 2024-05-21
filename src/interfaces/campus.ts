@@ -1,9 +1,9 @@
 
 
 export interface Campus {
-    codigoSede: number;
+    codigoSede?: number;
     nombreSede: string;
-    descriptionSede: string;
+    descriptionSede?: string;
     municipio: string;
     departamento: string;
 }

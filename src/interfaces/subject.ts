@@ -1,9 +1,7 @@
-import { Program } from "./program";
-
-export interface Subject extends Program{
-    codigoAsignatura: Number;
+export interface ProgramSubject {
+    codigoAsignatura?: Number;
     nombreAsignatura: string;
-    tipoAsignatura?: string[];
+    tipoAsignatura?: string;
     intensidadHora?: string;
-    descriptionAsignatura?: string[];
+    descriptionAsignatura?: string;
 }

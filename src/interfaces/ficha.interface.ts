@@ -1,11 +1,11 @@
-import { Campus } from "./campus";
 import { Program } from "./program";
-import { Subject } from "./subject";
+import { Student } from "./student.interface";
+import { Teacher } from "./teacher.interface";
 
-interface Ficha extends Campus, Program, Subject {
-codigoStudent:string;
-codigoTeacher: string;
-codigoSede:string;
-codigoPrograma:string;
-codigoSubject: string;
+interface Ficha extends Program {
+    idFicha: number;
+    estudiante: Student[];
+    profesor: Teacher[];
+    
+
 }
