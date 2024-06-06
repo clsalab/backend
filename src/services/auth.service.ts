@@ -22,9 +22,51 @@ import { generateToken } from "../utils/jwt.handle";
     }
 }; */
 
-const registerNewUser = async ({ useremail, userpassword, username, userroles, tipoDocumento, fechaNacimiento, numeroDocumento, documentoIdentidad, paisExpedicion, departamentoExpedicion, municipioExpedicion, fechaExpedicion, nombres, apellidos, sexo,direccion, celular, paisNacimiento, departamentoNacimiento, municipioNacimiento, estrato }: User) => {
+const registerNewUser = async ({ 
+    username,
+    useremail,
+    userpassword,
+    userroles,
+    tipoDocumento,
+    fechaNacimiento,
+    numeroDocumento,
+    documentoIdentidad,
+    paisExpedicion,
+    departamentoExpedicion,
+    municipioExpedicion,
+    fechaExpedicion,
+    nombres,
+    apellidos,
+    sexo,
+    direccion,
+    celular,
+    paisNacimiento,
+    departamentoNacimiento,
+    municipioNacimiento,
+    estrato, }: User) => {
     try {
-        console.log("Datos recibidos para el registro:", { useremail, userpassword, username, userroles, tipoDocumento, fechaNacimiento, numeroDocumento, documentoIdentidad, paisExpedicion, departamentoExpedicion, municipioExpedicion, fechaExpedicion, nombres, apellidos, sexo, paisNacimiento, departamentoNacimiento, municipioNacimiento, estrato });
+        console.log("Datos recibidos para el registro:", { 
+            username,
+            useremail,
+            userpassword,
+            userroles,
+            tipoDocumento,
+            fechaNacimiento,
+            numeroDocumento,
+            documentoIdentidad,
+            paisExpedicion,
+            departamentoExpedicion,
+            municipioExpedicion,
+            fechaExpedicion,
+            nombres,
+            apellidos,
+            sexo,
+            direccion,
+            celular,
+            paisNacimiento,
+            departamentoNacimiento,
+            municipioNacimiento,
+            estrato });
 
         // Verificar si el número de documento ya existe en la base de datos
         const existingUser = await UserModel.findOne({ numeroDocumento });

@@ -1,6 +1,6 @@
-import { Campus } from "./campus";
-import { ProgramSemester } from "./semester";
-import { ProgramSubject } from "./subject";
+import { Campus } from "./sede.interface";
+import { ProgramSemester } from "./semestre.interface";
+import { ProgramSubject } from "./asignatura.interface";
 
 export interface Program extends Campus{
     codigoPrograma?: number;

@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { ProgramSubject } from "../../interfaces/subject";
+import { ProgramSubject } from "../../interfaces/asignatura.interface";
 import MongooseDelete from "mongoose-delete";
 
 const SubjectSchema = new Schema<ProgramSubject>(

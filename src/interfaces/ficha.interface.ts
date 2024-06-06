@@ -1,4 +1,4 @@
-import { Program } from "./program";
+import { Program } from "./programa.interface";
 import { Student } from "./student.interface";
 import { Teacher } from "./teacher.interface";
 

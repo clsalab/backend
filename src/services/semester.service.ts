@@ -1,4 +1,4 @@
-import { ProgramSemester } from "../interfaces/semester";
+import { ProgramSemester } from "../interfaces/semestre.interface";
 import semesterModel from "../models/nosql/semester";
 
 const inserSemester = async (item: ProgramSemester) => {

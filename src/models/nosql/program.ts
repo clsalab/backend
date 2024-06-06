@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
-import { Program } from "../../interfaces/program";
+import { Program } from "../../interfaces/programa.interface";
 import MongooseDelete from "mongoose-delete";
-import { ProgramSemester } from "../../interfaces/semester";
-import { ProgramSubject } from "../../interfaces/subject";
+import { ProgramSemester } from "../../interfaces/semestre.interface";
+import { ProgramSubject } from "../../interfaces/asignatura.interface";
 
 const ProgramSemesterSchema = new Schema<ProgramSemester>({
     codigoSemestre: { type: Number },

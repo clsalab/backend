@@ -1,4 +1,4 @@
-import { Program } from "../interfaces/program";
+import { Program } from "../interfaces/programa.interface";
 import programModel from "../models/nosql/program";
 
 const inserProgram = async (item: Program) => {

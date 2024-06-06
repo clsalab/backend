@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { ProgramSemester } from "../../interfaces/semester";
+import { ProgramSemester } from "../../interfaces/semestre.interface";
 import MongooseDelete from "mongoose-delete";
 
 const SemesterSchema = new Schema<ProgramSemester>(

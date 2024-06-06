@@ -1,4 +1,4 @@
-import { Campus } from "../interfaces/campus";
+import { Campus } from "../interfaces/sede.interface";
 import campusModel from "../models/nosql/campus";
 
 const inserCampus = async (item: Campus) => {

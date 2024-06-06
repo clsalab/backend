@@ -1,4 +1,4 @@
-import { Program } from "./program";
+import { Program } from "./programa.interface";
 import { User } from "./user.interface";
 
 export interface Student extends User{

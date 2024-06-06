@@ -1,4 +1,4 @@
-import { ProgramSubject } from "../interfaces/subject";
+import { ProgramSubject } from "../interfaces/asignatura.interface";
 import SubjectModel from "../models/nosql/subject";
 
 const inserSubject = async (item: ProgramSubject) => {
