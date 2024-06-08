@@ -1,5 +1,5 @@
 export interface ProgramSemester {
-    codigoSemestre?: Number;
+    codigoSemestre?: number;
     semestre: string;
     ano: string;
     descripcionSemestre?: string;

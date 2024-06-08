@@ -6,7 +6,7 @@ const validatorCreateProgram = [
     check("codigoPrograma").exists().notEmpty(),
     check("nombrePrograma").exists().notEmpty(),
     check("tipoPrograma").exists().notEmpty(),
-    check("intensidadHora").exists().notEmpty(),
+    check("intensidadHoraPrograma").exists().notEmpty(),
     check("descripcionPrograma").exists().notEmpty(),
     (req: Request, res: Response, next: NextFunction) => {
         return validateResults(req, res, next);

@@ -1,14 +1,13 @@
 import { Campus } from "./sede.interface";
 import { ProgramSemester } from "./semestre.interface";
 import { ProgramSubject } from "./asignatura.interface";
+import { Types } from "mongoose";
 
-export interface Program extends Campus{
+export interface Program {
     codigoPrograma?: number;
     nombrePrograma: string;
     tipoPrograma: string;
-    intensidadHora?: string;
+    intensidadHoraPrograma?: number;
     descripcionPrograma?: string;
-    semestre?:ProgramSemester[];
-    asignaturas?:ProgramSubject[];
     
 }

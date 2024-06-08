@@ -5,10 +5,11 @@ import MongooseDelete from "mongoose-delete";
 const SubjectSchema = new Schema<ProgramSubject>(
 {
     
-    codigoAsignatura: { type: Number, required:true },
-    tipoAsignatura: {type: String, required: true  },
-    descriptionAsignatura: { type: String, required: true },
+    codigoAsignatura: { type: Number,  unique: true },
+    tipoAsignatura: {type: String  },
+    descriptionAsignatura: { type: String },
     nombreAsignatura: { type: String, required: true },
+    intensidadHoraAsignatura: { type: String },
 },
 {
     timestamps: true,

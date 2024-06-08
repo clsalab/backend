@@ -11,7 +11,7 @@ const router = Router()
 
 router.get('/', getItems);
 router.get('/:id', getItem);
-router.post('/', checkJwt, checkAdmin, validatorCreateSemester, postItem);
+router.post('/',validatorCreateSemester, postItem);
 
 
 

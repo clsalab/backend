@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import { Program } from "../../interfaces/programa.interface";
 import MongooseDelete from "mongoose-delete";
 import { ProgramSemester } from "../../interfaces/semestre.interface";
@@ -21,18 +21,11 @@ const ProgramSubjectSchema = new Schema<ProgramSubject>({
 
 const ProgramSchema = new Schema<Program>(
     {   
-        codigoSede: { type: Number, required:true },
-        nombreSede: { type: String, required: true },
-        descriptionSede: { type: String, required: true },
-        municipio: { type: String, required: true },
-        departamento: { type: String, required: true },
-        codigoPrograma: { type: Number, required: true },
+        codigoPrograma: { type: Number, required: true,  unique: true},
         nombrePrograma: { type: String, required: true },
         tipoPrograma:  { type: String, enum: ["Técnico", "Curso"], default: "Técnico" },
-        intensidadHora: { type: String, required: true },
-        descripcionPrograma: { type: String, required: false }, // Corregido el error tipográfico
-        semestre: { type: [ProgramSemesterSchema] },
-        asignaturas: { type: [ProgramSubjectSchema] }
+        intensidadHoraPrograma: { type: String, required: true },
+        descripcionPrograma: { type: String, required: false },
         
 
     },

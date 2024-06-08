@@ -3,7 +3,7 @@ import { check } from "express-validator";
 import validateResults from "../utils/handleValidator";
 
 const validatorCreateSubject = [
-    check("codigoAsignatura").exists().notEmpty().isLength({ min: 3, max: 9999 }),
+    check("codigoAsignatura").exists().notEmpty(),
     check("nombreAsignatura").exists().notEmpty(),
     check("tipoAsignatura").exists().notEmpty(),
     check("intensidadHora").exists().notEmpty(),

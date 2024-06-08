@@ -4,7 +4,7 @@ import MongooseDelete from "mongoose-delete";
 
 const CampusSchema = new Schema<Campus>(
 {
-    codigoSede: { type: Number, required:true },
+    codigoSede: { type: Number, required:true, unique: true },
     descriptionSede: { type: String, required: true },
     nombreSede: { type: String, required: true },
     municipio: { type: String, required: true }, 

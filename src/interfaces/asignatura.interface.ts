@@ -1,7 +1,7 @@
 export interface ProgramSubject {
-    codigoAsignatura?: Number;
+    codigoAsignatura?: number;
     nombreAsignatura: string;
     tipoAsignatura?: string;
-    intensidadHora?: string;
+    intensidadHoraAsignatura?: number;
     descriptionAsignatura?: string;
 }

@@ -1,4 +1,9 @@
+import { ProgramSubject } from "./asignatura.interface";
 import { Auth } from "./auth.interface";
+import { Program } from "./programa.interface";
+import { Campus } from "./sede.interface";
+import { ProgramSemester } from "./semestre.interface";
+import { Teacher } from "./teacher.interface";
 
 export interface User extends Auth{
     useremail: string;
@@ -23,5 +28,14 @@ export interface User extends Auth{
     departamentoNacimiento: string;
     municipioNacimiento: string;
     estrato: number;
+    cargo?: string;
+    tituloAcademico?: string;
+    perfilLaboral?: string;
+    anoExperiencia?:string;
+    programaF?: Program[];
+    asignaturas?:ProgramSubject[];
+    profesor?: Teacher[];
+    semestre?:ProgramSemester[];
+    sede?: Campus[];
     
 }

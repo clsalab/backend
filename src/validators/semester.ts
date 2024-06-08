@@ -6,7 +6,7 @@ const validatorCreateSemester = [
     check("codigoSemestre").exists().notEmpty().isLength({ min: 3, max: 9999 }),
     check("semestre").exists().notEmpty(),
     check("ano").exists().notEmpty(),
-    check("descipcionSemestre").exists().notEmpty(),
+    check("descripcionSemestre").exists(),
     (req: Request, res: Response, next: NextFunction) => {
         return validateResults(req, res, next);
     },

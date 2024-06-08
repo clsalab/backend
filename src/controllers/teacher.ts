@@ -45,10 +45,11 @@ const registerCtrl = async (req: RequestExt, res: Response) => {
     } catch (errors) {
         // Manejar errores
         console.error("Error en el registro de usuario:", errors);
+        // Solo enviar una respuesta al cliente con el error
         res.status(500).send("Error interno del servidor.");
-        res.status(400).send("Error  validación de datos - INVALID VALUE.");
     }
 };
+
 
 
 const updateItem = async (req: RequestExt, res: Response) => {
