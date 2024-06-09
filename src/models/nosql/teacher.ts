@@ -93,6 +93,6 @@ const TeacherSchema = new Schema<Teacher>(
 
 TeacherSchema.plugin(mongooseDelete, { deleted: true });
 
-const teachersModel = model<Teacher>('teachers', TeacherSchema);
+const teachersModel = model<Teacher>('Teachers', TeacherSchema);
 
 export default teachersModel;

@@ -18,6 +18,6 @@ const SemesterSchema = new Schema<ProgramSemester>(
 
 SemesterSchema.plugin(MongooseDelete, { overrideMethods: "all" });
 
-const semesterModel = model<ProgramSemester>('semestre', SemesterSchema);
+const semesterModel = model<ProgramSemester>('Semestres', SemesterSchema);
 
 export default semesterModel;

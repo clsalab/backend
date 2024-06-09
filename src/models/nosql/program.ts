@@ -37,6 +37,6 @@ const ProgramSchema = new Schema<Program>(
 
 ProgramSchema.plugin(MongooseDelete, { overrideMethods: "all" });
 
-const programModel = model<Program>('Programa', ProgramSchema);
+const programModel = model<Program>('Programas', ProgramSchema);
 
 export default programModel;

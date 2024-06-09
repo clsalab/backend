@@ -6,7 +6,7 @@ const validatorCreateSubject = [
     check("codigoAsignatura").exists().notEmpty(),
     check("nombreAsignatura").exists().notEmpty(),
     check("tipoAsignatura").exists().notEmpty(),
-    check("intensidadHora").exists().notEmpty(),
+    check("intensidadHoraAsignatura").exists().notEmpty(),
     check("descriptionAsignatura").exists().notEmpty(),
     (req: Request, res: Response, next: NextFunction) => {
         return validateResults(req, res, next);

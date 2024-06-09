@@ -20,6 +20,6 @@ const SubjectSchema = new Schema<ProgramSubject>(
 
 SubjectSchema.plugin(MongooseDelete, { overrideMethods: "all" });
 
-const subjectModel = model<ProgramSubject>('asignatura', SubjectSchema);
+const subjectModel = model<ProgramSubject>('Asignaturas', SubjectSchema);
 
 export default subjectModel;
