@@ -1,7 +1,10 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 import { Storage } from "../../interfaces/storage.interface";
 
-const StorageSchema = new Schema<Storage>(
+// Definir el tipo para el modelo de almacenamiento
+interface StorageModelInterface extends Storage, Document {}
+
+const StorageSchema = new Schema<StorageModelInterface>(
 {
     fileName: { type: String },
     path: { type: String },
@@ -13,5 +16,5 @@ const StorageSchema = new Schema<Storage>(
 }
 );
 
-const StorageModel = model('storage_', StorageSchema);
+const StorageModel = model<StorageModelInterface>('storage_', StorageSchema);
 export default StorageModel;

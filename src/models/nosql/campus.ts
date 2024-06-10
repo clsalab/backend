@@ -20,6 +20,6 @@ const CampusSchema = new Schema<Campus>(
 
 CampusSchema.plugin(MongooseDelete, { overrideMethods: "all" });
 
-const campusModel = model<Campus>('sede', CampusSchema);
+const campusModel = model<Campus>('sedes', CampusSchema);
 
 export default campusModel;

@@ -3,7 +3,6 @@ import { Auth } from "./auth.interface";
 import { Program } from "./programa.interface";
 import { Campus } from "./sede.interface";
 import { ProgramSemester } from "./semestre.interface";
-import { Teacher } from "./teacher.interface";
 
 export interface User extends Auth{
     useremail: string;
@@ -34,8 +33,10 @@ export interface User extends Auth{
     anoExperiencia?:string;
     programaF?: Program[];
     asignaturas?:ProgramSubject[];
-    profesor?: Teacher[];
     semestre?:ProgramSemester[];
     sede?: Campus[];
-    
+    profesores?: string[];
+    estadoStudiante?:("matriculado" | "egresado" | "desertado" | "cancelado")[];
+    descripcionStudent?: string;
+    ficha?:Program[];
 }

@@ -1,89 +1,99 @@
-import { Response } from "express";
-import { matchedData } from "express-validator";
-import  fichaModel  from "../models/nosql/ficha";
-import { handleHttp } from "../utils/error.handler";
-import { RequestExt } from "../interfaces/req-ext.interface";
-import { deleteFicha, getFicha, getFichas, inserFicha, updateFicha } from "../services/ficha.service";
+// ficha.controller.ts
 
+import { Request, Response } from 'express';
+import FichaService from '../services/ficha.service';
+import fichaModel from '../models/nosql/ficha';
 
-// Obtener una lista de la BD
-const getItems = async (req: RequestExt, res: Response) => {
-    try {
-        const user = req.user;
-        const data = await getFichas();
-        res.send({ data, user });
-    } catch (e) {
-        handleHttp(res, "ERROR_GET_FichaS");
-    }
-};
-
-
-
-// Obtener un detalle de la BD
-const getItem = async ({ params }: RequestExt, res: Response) => {
-    try {
-        const { id } = params;
-        const response = await getFicha(id);
-        const data = response ? response : "NOT_FOUND";
-        res.send(data);
-    } catch (e) {
-        handleHttp(res, 'ERROR_GET_Ficha');
-    }
-};
-
-
-
-// Insertar un registro en la BD
-const postItem = async ({ body }: RequestExt, res: Response) => {
-    try {
-        
-        const responseItem = await inserFicha(body);
-        res.send(responseItem);
-    } catch (e: any) { // Añade ': any' después de 'e'
-        if (e.name === 'ValidationError') {
-            handleHttp(res, 'VALIDATION_ERROR', e.message);
-        } else {
-            handleHttp(res, 'ERROR_POST_ITEM', e);
+class FichaController {
+  // Controlador para crear una nueva ficha de matrícula
+    async crearFicha(req: Request, res: Response) {
+        try {
+        const nuevaFicha = await FichaService.crearFicha(req.body);
+        res.status(201).json(nuevaFicha);
+        } catch (error: any) { // Especificar el tipo de error como 'any'
+        res.status(500).json({ mensaje: error.message });
         }
     }
-}
 
-
-const updateItem = async (req: RequestExt, res: Response) => {
-    try {
-        const { id } = req.params; // Obtener el ID del parámetro de la URL
-        const { body } = req; // Obtener los datos de la solicitud
-
-        // Acceder a req.Ficha para obtener los datos del usuario que realiza la actualización
-        const updatingUser = req.user;
-
-        // Realizar la actualización y obtener los datos actualizados
-        const response = await updateFicha(id, body);
-
-        if (!response) {
-            return res.status(404).send("NOT_FOUND");
+    // Controlador para obtener todas las fichas de matrícula
+    async obtenerTodasLasFichas(req: Request, res: Response) {
+        try {
+        const fichas = await FichaService.obtenerTodasLasFichas();
+        res.status(200).json(fichas);
+        } catch (error: any) { // Especificar el tipo de error como 'any'
+        res.status(500).json({ mensaje: error.message });
         }
-
-        // Enviar los datos del usuario actualizado y del usuario que realizó la actualización
-        res.send({ updatedUser: response, updatingUser });
-    } catch (e: any) {
-        handleHttp(res, 'ERROR_UPDATE_Ficha', e);
     }
-};
 
-
-// Eliminar un registro de la BD
-const deleteItem = async (req: RequestExt, res: Response) => {
-    try {
-        const { id } = req.params;
-        const updatingUser = req.user;
-        const response = await deleteFicha(id);
-        const data = response ? response : "NOT_FOUND";
-        res.send({ deleteFicha: data, updatingUser } ); // Corregir "updateUser" a "updatingUser"
-    } catch (e) {
-        handleHttp(res, 'ERROR_DELETE_Ficha');
+    // Controlador para obtener una ficha de matrícula por su ID
+    async obtenerFichaPorId(req: Request, res: Response) {
+        try {
+        const ficha = await FichaService.obtenerFichaPorId(req.params.id);
+        if (!ficha) {
+            return res.status(404).json({ mensaje: 'Ficha de matrícula no encontrada' });
+        }
+        res.status(200).json(ficha);
+        } catch (error: any) { // Especificar el tipo de error como 'any'
+        res.status(500).json({ mensaje: error.message });
+        }
     }
+
+    // Controlador para actualizar una ficha de matrícula
+    async actualizarFicha(req: Request, res: Response) {
+        try {
+        const fichaActualizada = await FichaService.actualizarFicha(req.params.id, req.body);
+        res.status(200).json(fichaActualizada);
+        } catch (error: any) { // Especificar el tipo de error como 'any'
+        res.status(500).json({ mensaje: error.message });
+        }
+    }
+
+    // Controlador para eliminar una ficha de matrícula
+    async eliminarFicha(req: Request, res: Response) {
+        try {
+        await FichaService.eliminarFicha(req.params.id);
+        res.status(200).json({ mensaje: 'Ficha de matrícula eliminada exitosamente' });
+        } catch (error: any) { // Especificar el tipo de error como 'any'
+        res.status(500).json({ mensaje: error.message });
+        }
+    }
+
+    // Controlador para obtener fichas de matrícula por nombre de sede
+    async obtenerFichasPorNombreSede(nombreSede: string) {
+        try {
+          // Buscar las fichas que tengan la sede con el nombre especificado usando agregación
+        const fichas = await fichaModel.aggregate([
+        {
+            $lookup: {
+            from: 'sedes', // Nombre de la colección con la que se quiere hacer el join
+            localField: 'sede._id', // Campo local
+            foreignField: '_id', // Campo en la colección externa
+            as: 'sedeDetalle' // Nombre del array que contendrá los documentos unidos
+            }
+        },
+        {
+            $unwind: '$sedeDetalle' // Descomponer el array para acceder a los campos del documento
+        },
+        {
+            $match: { 'sedeDetalle.nombreSede': nombreSede } // Filtro por nombreSede
+        }
+        ]);
+        return fichas;
+    } catch (error) {
+        throw new Error('Error al obtener las fichas de matrícula por nombre de la sede');
+    }
+    }
+
+    async obtenerFichasPorIdSede(req: Request, res: Response) {
+        try {
+        const { idSede } = req.params;
+        const fichas = await FichaService.obtenerFichasPorIdSede(idSede);
+        res.status(200).json(fichas);
+    } catch (error: any) {
+        res.status(500).json({ mensaje: error.message });
+    }
+    }
+
 }
 
-    
-export { getItems, getItem, postItem, updateItem, deleteItem }; 
+export default new FichaController();

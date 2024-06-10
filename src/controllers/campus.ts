@@ -3,6 +3,7 @@ import { matchedData } from "express-validator";
 import { handleHttp } from "../utils/error.handler";
 import { RequestExt } from "../interfaces/req-ext.interface";
 import { deleteCampus, getCampus, getCampuss, inserCampus, updateCampus } from "../services/campus.service";
+import { filtrarFichasPorSede } from "../utils/functionFiltrar";
 
 
 // Obtener una lista de la BD
@@ -81,6 +82,20 @@ const deleteItemCampus = async (req: RequestExt, res: Response) => {
         handleHttp(res, 'ERROR_DELETE_CAMPUS');
     }
 }
+
+export const filtrarFichasPorSedeController = (req: RequestExt, res: Response) => {
+    try {
+        const fichas: any[] = [];
+        const { nombreSede } = req.params; // Obtén el nombre de sede de los parámetros de la URL
+        // Suponiendo que 'fichas' es un array de objetos con la estructura que has proporcionado
+        // Filtra las fichas por nombre de sede
+        const fichasFiltradas = filtrarFichasPorSede(fichas, nombreSede);
+        res.json(fichasFiltradas);
+    } catch (error) {
+        console.error('Error al filtrar las fichas por sede:', error);
+        res.status(500).json({ message: 'Error al filtrar las fichas por sede' });
+    }
+};
 
     
 export { getItemsCampus, getItemCampus, postItemCampus, updateItemCampus, deleteItemCampus }; 

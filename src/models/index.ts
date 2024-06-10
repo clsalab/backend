@@ -1,9 +1,12 @@
 
 const models = {
     usersModel: require('./nosql/user'),
-    productosModel: require('./nosql/product'),
+    campusModel: require('./nosql/campus'),
     storage_Model: require('./nosql/storage'),
-    vendedoresModel: require('./nosql/vendedor'),
+    fichaModel: require('./nosql/ficha'),
+    programModel: require('./nosql/program'),
+    semesterModel: require('./nosql/semester'),
+    subjectModel: require('./nosql/subject'),
 }
 
 module.exports = models

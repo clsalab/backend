@@ -1,18 +1,15 @@
-import { ObjectId } from "mongoose";
-import { Program } from "./programa.interface";
-import { Student } from "./student.interface";
-import { Teacher } from "./teacher.interface";
-import { Campus } from "./sede.interface";
-import { ProgramSemester } from "./semestre.interface";
+// interfaces/ficha.interface.ts
 
-export interface Ficha  {
+import { Document, Types } from "mongoose";
+
+export interface Ficha extends Document {
     idFicha: number;
     descripcionFicha: string;
-    sede?: ObjectId | Campus[];
-    semestre?: ObjectId | ProgramSemester[];
-    estudiantes?: ObjectId | Student[];
-    profesores?: ObjectId | Teacher[];
-    programa?: ObjectId | Program [];
-    asignaturas?: ObjectId | Program [];
-
+    sede: Types.ObjectId[];
+    semestre: Types.ObjectId[];
+    estudiantes: Types.ObjectId[];
+    profesores: Types.ObjectId[];
+    programa: Types.ObjectId[];
+    asignaturas: Types.ObjectId[];
 }
+

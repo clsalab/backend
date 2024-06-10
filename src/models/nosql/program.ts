@@ -26,7 +26,7 @@ const ProgramSchema = new Schema<Program>(
         tipoPrograma:  { type: String, enum: ["Técnico", "Curso"], default: "Técnico" },
         intensidadHoraPrograma: { type: String, required: true },
         descripcionPrograma: { type: String, required: false },
-        
+        asignatura: { type: Array, default : []}
 
     },
     {
@@ -37,6 +37,6 @@ const ProgramSchema = new Schema<Program>(
 
 ProgramSchema.plugin(MongooseDelete, { overrideMethods: "all" });
 
-const programModel = model<Program>('Programas', ProgramSchema);
+const programModel = model<Program>('programas', ProgramSchema);
 
 export default programModel;

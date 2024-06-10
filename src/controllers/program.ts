@@ -85,5 +85,19 @@ const deleteItem = async (req: RequestExt, res: Response) => {
     }
 }
 
+/* const listaAsignaturaPrograma = async () => {
+    const resultado: any = await programModel.aggregate(
+        [
+            {
+                $lookup:
+                {
+                    from: "asignaturas",
+                }
+            }
+        ]
+    )
+    console.log('****** RESULTADOS ******', resultado)
+} */
+
     
 export { getItems, getItem, postItem, updateItem, deleteItem }; 
