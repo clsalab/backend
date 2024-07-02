@@ -24,6 +24,11 @@ const getCampuss = async () => {
     return responseItem;
 };
 
+const countCampus = async () => {
+    const countItem = await campusModel.find({}).countDocuments();
+    return countItem;
+};
+
 const getCampus = async (id:string) => {
     const responseItem = await campusModel.findOne({ _id: id });
     return responseItem;
@@ -39,4 +44,4 @@ const deleteCampus = async (id:string)=> {
     const responseItem = await campusModel.deleteOne({ _id: id });
     return responseItem;
 }
-export { inserCampus, getCampuss, getCampus, updateCampus, deleteCampus};
+export { inserCampus, getCampuss, countCampus, getCampus, updateCampus, deleteCampus};

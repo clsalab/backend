@@ -27,6 +27,7 @@ const validatorCreateUser = [
     check("departamentoNacimiento").exists().notEmpty(),
     check("municipioNacimiento").exists().notEmpty(),
     check("estrato").exists().isIn([1,2,3,4,5,6,7,8,9]),
+    check("ficha").exists(),
     (req: RequestExt, res: Response, next: NextFunction) => {
         return validateResults(req, res, next);
     },

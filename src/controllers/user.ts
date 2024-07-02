@@ -1,9 +1,9 @@
-import { Response } from "express";
+import { Response, Request } from "express";
 import { matchedData } from "express-validator";
 import usersModel from "../models/nosql/user";
 import { handleHttp } from "../utils/error.handler";
 import { RequestExt } from "../interfaces/req-ext.interface";
-import { deleteUser, getUser, getUsersByRole, updateUser } from "../services/user.service";
+import { deleteUser, getCountUsers, getUser, getUsersByRole, updateUser } from "../services/user.service";
 
 // Obtener una lista de todos los usuarios
 const getItems = async (req: RequestExt, res: Response) => {
@@ -13,6 +13,15 @@ const getItems = async (req: RequestExt, res: Response) => {
         res.send({ data, user });
     } catch (error) {
         handleHttp(res, "ERROR_GET_USERS");
+    }
+};
+// Obtener una lista de todos los usuarios
+const getCountItems = async (req: RequestExt, res: Response) => {
+    try {
+        const data = await getCountUsers();
+        res.json(data);
+    } catch (error) {
+        handleHttp(res, "ERROR_GET_COUNT_USERS");
     }
 };
 
@@ -117,4 +126,40 @@ const getUserUsers = async (req: RequestExt, res: Response) => {
     }
 };
 
-export { getItems, getItem, createItem, updateItem, deleteItem, getAdminUsers, getTeacherUsers, getStudentUsers, getUserUsers };
+
+const userConFicha = async () => {
+    try {
+        const ficha = await usersModel.aggregate([
+            {
+                $lookup: {
+                    from: "fichas",
+                    localField: "ficha",
+                    foreignField: "_id",
+                    as: "ficha"
+                }
+            },
+            {
+                $unwind: '$ficha' // Descomponer el array para acceder a los campos del documento
+            }
+        ]);
+        return ficha;
+    } catch (error) {
+        throw new Error('Error al obtener las fichas de matrícula por nombre de la sede');
+    }
+
+}
+
+
+export { getItems,
+        getCountItems,
+        getItem,
+        createItem,
+        updateItem,
+        deleteItem,
+        getAdminUsers, 
+        getTeacherUsers,
+        getStudentUsers,
+        getUserUsers,
+        userConFicha
+        };
+

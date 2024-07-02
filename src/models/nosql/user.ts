@@ -1,4 +1,4 @@
-import { Schema, model, } from "mongoose";
+import { Schema, Types, model, } from "mongoose";
 import { User } from "../../interfaces/user.interface";
 const mongooseDelete = require("mongoose-delete");
 
@@ -26,7 +26,15 @@ const UserSchema = new Schema<User>(
         paisNacimiento: { type: String, required: true },
         departamentoNacimiento: { type: String, required: true },
         municipioNacimiento: { type: String, required: true },
-        estrato: { type: Number, required: true }
+        estrato: { type: Number, required: true },
+        cargo: { type: String },
+        tituloAcademico: { type: String },
+        perfilLaboral: { type: String },
+        anoExperiencia: { type: String },
+        descripcionStudent: { type: String },
+        estadoStudiante: { type: String },
+        ficha: { type:Types.ObjectId, ref: 'fichas', autopopulate: true },
+
     },
     {
         versionKey: false,
@@ -34,6 +42,7 @@ const UserSchema = new Schema<User>(
     }
 );
 
+UserSchema.plugin(require('mongoose-autopopulate'));
 UserSchema.plugin(mongooseDelete, { deleted: true });
 
 const usersModel = model<User>('users', UserSchema);

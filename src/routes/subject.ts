@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getItem, getItems, updateItem, deleteItem, postItem } from "../controllers/subject";
+import { getItem, getItems, updateItem, deleteItem, postItem, getCountItems } from "../controllers/subject";
 import { checkJwt } from "../middleware/sesion";
 import { validatorCreateSubject, validatorGetSubject } from "../validators/subject";
 import checkAdmin from "../middleware/rol";
@@ -10,6 +10,7 @@ const router = Router()
  */
 
 router.get('/', getItems);
+router.get('/count', getCountItems);
 router.get('/:id', getItem);
 router.post('/', validatorCreateSubject, postItem);
 

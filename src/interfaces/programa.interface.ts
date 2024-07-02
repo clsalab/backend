@@ -1,3 +1,4 @@
+import { Nota } from "./notas";
 
 export interface Program {
     codigoPrograma?: number;
@@ -5,6 +6,5 @@ export interface Program {
     tipoPrograma: string;
     intensidadHoraPrograma?: number;
     descripcionPrograma?: string;
-    asignatura?: string[];
     
 }

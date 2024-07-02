@@ -25,6 +25,16 @@ class FichaController {
         }
     }
 
+      // Controlador para contar todas las fichas de matrícula
+    async getCountFichas(req: Request, res: Response) {
+        try {
+        const fichas = await FichaService.contarTodasLasFichas();
+        res.status(200).json(fichas);
+        } catch (error: any) { // Especificar el tipo de error como 'any'
+        res.status(500).json({ mensaje: error.message });
+        }
+    }
+
     // Controlador para obtener una ficha de matrícula por su ID
     async obtenerFichaPorId(req: Request, res: Response) {
         try {
@@ -84,15 +94,6 @@ class FichaController {
     }
     }
 
-    async obtenerFichasPorIdSede(req: Request, res: Response) {
-        try {
-        const { idSede } = req.params;
-        const fichas = await FichaService.obtenerFichasPorIdSede(idSede);
-        res.status(200).json(fichas);
-    } catch (error: any) {
-        res.status(500).json({ mensaje: error.message });
-    }
-    }
 
 }
 

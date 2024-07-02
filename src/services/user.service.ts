@@ -1,5 +1,8 @@
+import { Response } from "express";
+import { RequestExt } from "../interfaces/req-ext.interface";
 import { User } from "../interfaces/user.interface";
 import UserModel from "../models/nosql/user"; // Supongamos que tienes un modelo de usuario definido con Mongoose
+import usersModel from "../models/nosql/user";
 
 // Función para obtener los roles del usuario por correo electrónico
 async function getUserRolesByEmail(email: string): Promise<string[] | null> {
@@ -45,6 +48,17 @@ const getUsers = async (): Promise<User[] | null> => {
     }
 };
 
+// Función para contar todos los usuarios
+const getCountUsers = async () => {
+    try {
+        const users = await UserModel.find({}).countDocuments();
+        return users;
+    } catch (error) {
+        console.error("Error al obtener los usuarios:", error);
+        return null;
+    }
+};
+
 // Función para obtener un usuario por su ID
 const getUser = async (id: string): Promise<User | null> => {
     try {
@@ -78,4 +92,8 @@ const deleteUser = async (id: string): Promise<boolean> => {
     }
 };
 
-export { getUserRolesByEmail, getUsersByRole, getUsers, getUser, updateUser, deleteUser };
+
+    
+
+
+export { getUserRolesByEmail, getUsersByRole, getUsers, getCountUsers, getUser, updateUser, deleteUser };

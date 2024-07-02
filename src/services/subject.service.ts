@@ -24,6 +24,11 @@ const getSubjects = async () => {
     return responseItem;
 };
 
+const getCountSubjects = async () => {
+    const responseItem = await SubjectModel.find({}).countDocuments();
+    return responseItem;
+};
+
 const getSubject = async (id:string) => {
     const responseItem = await SubjectModel.findOne({ _id: id });
     return responseItem;
@@ -39,4 +44,4 @@ const deleteSubject = async (id:string)=> {
     const responseItem = await SubjectModel.deleteOne({ _id: id });
     return responseItem;
 }
-export { inserSubject, getSubjects, getSubject, updateSubject, deleteSubject};
+export { inserSubject, getSubjects, getCountSubjects, getSubject, updateSubject, deleteSubject};

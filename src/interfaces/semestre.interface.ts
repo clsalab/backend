@@ -3,4 +3,5 @@ export interface ProgramSemester {
     semestre: string;
     ano: string;
     descripcionSemestre?: string;
+    asignaturas?: string[];
 }

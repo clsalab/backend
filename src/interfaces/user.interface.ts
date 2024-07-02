@@ -1,3 +1,4 @@
+import { ObjectId } from "mongoose";
 import { ProgramSubject } from "./asignatura.interface";
 import { Auth } from "./auth.interface";
 import { Program } from "./programa.interface";
@@ -31,12 +32,7 @@ export interface User extends Auth{
     tituloAcademico?: string;
     perfilLaboral?: string;
     anoExperiencia?:string;
-    programaF?: Program[];
-    asignaturas?:ProgramSubject[];
-    semestre?:ProgramSemester[];
-    sede?: Campus[];
-    profesores?: string[];
     estadoStudiante?:("matriculado" | "egresado" | "desertado" | "cancelado")[];
     descripcionStudent?: string;
-    ficha?:Program[];
+    ficha?:string;
 }

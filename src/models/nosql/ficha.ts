@@ -7,14 +7,13 @@ import { Ficha } from "../../interfaces/ficha.interface";
 
 const FichaSchema = new Schema<Ficha>(
     {     
-        idFicha: { type: Number, required: true,  unique: true},
-        semestre: [{ type:Types.ObjectId, ref: 'semestres', autopopulate: true }],
-        estudiantes:[{ type:Types.ObjectId, ref: 'users', autopopulate: true }],
-        sede: [{ type:Types.ObjectId, ref: 'sedes', autopopulate: true }],
-        profesores:[ { type:Types.ObjectId, ref: 'users', autopopulate: true }],
-        programa:[ { type:Types.ObjectId, ref: 'programas', autopopulate: true }],
-        asignaturas: [{ type:Types.ObjectId, ref: 'asignaturas', autopopulate: true }],
-        descripcionFicha: [{ type: String, required: false }],
+        idFicha: { type: Number, required: true,  unique: true},        
+        descripcionFicha: { type: String, required: false },
+        sede: [{ type:Types.ObjectId,  ref: 'sedes', autopopulate: true}],
+        programa: [{ type:Types.ObjectId, ref: 'programas', autopopulate: true }],
+        semestre1: [{ type:Types.ObjectId, ref: 'semestres', autopopulate: true }],
+        semestre2:[{ type:Types.ObjectId, ref: 'semestres', autopopulate: true }],
+        semestre3:[{ type:Types.ObjectId, ref: 'semestres', autopopulate: true }],
         
 
     },

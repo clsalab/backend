@@ -2,24 +2,23 @@ import { Request, Response, NextFunction } from "express";
 import { check } from "express-validator";
 import validateResults from "../utils/handleValidator";
 
-const validatorCreateSubject = [
-    check("codigoAsignatura").exists().notEmpty(),
+const validatorCreateNota = [
     check("nombreAsignatura").exists().notEmpty(),
-    check("tipoAsignatura").exists().notEmpty(),
-    check("intensidadHoraAsignatura").exists().notEmpty(),
-    check("descriptionAsignatura").exists().notEmpty(),
+    check("nota1").exists().notEmpty(),
+    check("nota2").exists().notEmpty(),
+    check("nota3").exists().notEmpty(),
+    check("notaD").exists().notEmpty(),
+    check("descripcion").exists().notEmpty(),
     (req: Request, res: Response, next: NextFunction) => {
         return validateResults(req, res, next);
     },
 ];
 
-
-
-const validatorGetSubject = [
+const validatorGetNota = [
     check("id").exists().notEmpty(),
     (req: Request, res: Response, next: NextFunction) => {
         return validateResults(req, res, next);
     },
 ];
 
-export { validatorCreateSubject, validatorGetSubject};
+export { validatorCreateNota, validatorGetNota};

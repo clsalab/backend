@@ -2,22 +2,32 @@ import { Response } from "express";
 import { matchedData } from "express-validator";
 import { handleHttp } from "../utils/error.handler";
 import { RequestExt } from "../interfaces/req-ext.interface";
-import { deleteCampus, getCampus, getCampuss, inserCampus, updateCampus } from "../services/campus.service";
+import { countCampus, deleteCampus, getCampus, getCampuss, inserCampus, updateCampus } from "../services/campus.service";
 import { filtrarFichasPorSede } from "../utils/functionFiltrar";
 
 
-// Obtener una lista de la BD
+// Obtener una lista de las sedes
 const getItemsCampus = async (req: RequestExt, res: Response) => {
     try {
-        const user = req.user;
         const data = await getCampuss();
-        res.send({ data, user });
+        res.json( data );
     } catch (e) {
         handleHttp(res, "ERROR_GET_CAMPUSS");
     }
 };
 
-// Obtener un detalle de la BD
+// Contar las sedes
+const getCountCampus = async (req: RequestExt, res: Response) => {
+    try{
+        const data = await countCampus();
+        res.json( data  );
+    } catch (e) {
+        handleHttp(res, "ERROR_GET_COUNT_CAMPUS");
+    }
+        
+};
+
+// Obtener un detalle de una sede
 const getItemCampus = async ({ params }: RequestExt, res: Response) => {
     try {
         const { id } = params;
@@ -97,5 +107,6 @@ export const filtrarFichasPorSedeController = (req: RequestExt, res: Response) =
     }
 };
 
+
     
-export { getItemsCampus, getItemCampus, postItemCampus, updateItemCampus, deleteItemCampus }; 
+export { getItemsCampus, getCountCampus, getItemCampus, postItemCampus, updateItemCampus, deleteItemCampus }; 

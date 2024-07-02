@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import { ProgramSubject } from "../../interfaces/asignatura.interface";
 import MongooseDelete from "mongoose-delete";
 
@@ -6,10 +6,18 @@ const SubjectSchema = new Schema<ProgramSubject>(
 {
     
     codigoAsignatura: { type: Number,  unique: true },
+    nombreAsignatura: { type: String, required: true },
     tipoAsignatura: {type: String  },
     descriptionAsignatura: { type: String },
-    nombreAsignatura: { type: String, required: true },
     intensidadHoraAsignatura: { type: String },
+    notaA:{ type: String },
+    nota1:{ type: String },
+    nota2:{ type: String },
+    nota3:{ type: String },
+    notaD:{ type: String },
+    definicion:{ type: String },
+    profesor:[ { type:Types.ObjectId, ref: 'users', autopopulate: true }],
+
 },
 {
     timestamps: true,
@@ -17,7 +25,7 @@ const SubjectSchema = new Schema<ProgramSubject>(
 }
 );
 
-
+SubjectSchema.plugin(require('mongoose-autopopulate'));
 SubjectSchema.plugin(MongooseDelete, { overrideMethods: "all" });
 
 const subjectModel = model<ProgramSubject>('asignaturas', SubjectSchema);

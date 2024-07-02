@@ -5,8 +5,8 @@ import MongooseDelete from "mongoose-delete";
 const CampusSchema = new Schema<Campus>(
 {
     codigoSede: { type: Number, required:true, unique: true },
-    descriptionSede: { type: String, required: true },
     nombreSede: { type: String, required: true },
+    descriptionSede: { type: String, required: true },
     municipio: { type: String, required: true }, 
     departamento: { type: String, require: true },     
 },
@@ -16,7 +16,7 @@ const CampusSchema = new Schema<Campus>(
 }
 );
 
-
+CampusSchema.plugin(require('mongoose-autopopulate'));
 
 CampusSchema.plugin(MongooseDelete, { overrideMethods: "all" });
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getItemCampus, getItemsCampus, postItemCampus, updateItemCampus, deleteItemCampus } from "../controllers/campus";
+import { getItemCampus, getItemsCampus, postItemCampus, updateItemCampus, deleteItemCampus, getCountCampus } from "../controllers/campus";
 import { checkJwt } from "../middleware/sesion";
 import { validatorCreateCampus, validatorGetCampus } from "../validators/campus";
 import checkTeacher from "../middleware/rolTeacher";
@@ -10,6 +10,7 @@ const router = Router()
  */
 
 router.get('/', getItemsCampus);
+router.get('/count', getCountCampus);
 router.get('/:id', getItemCampus);
 
 

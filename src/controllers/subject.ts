@@ -3,7 +3,7 @@ import { matchedData } from "express-validator";
 import  SubjectModel  from "../models/nosql/subject";
 import { handleHttp } from "../utils/error.handler";
 import { RequestExt } from "../interfaces/req-ext.interface";
-import { deleteSubject, getSubject, getSubjects, inserSubject, updateSubject } from "../services/subject.service";
+import { deleteSubject, getCountSubjects, getSubject, getSubjects, inserSubject, updateSubject } from "../services/subject.service";
 
 
 // Obtener una lista de la BD
@@ -14,6 +14,16 @@ const getItems = async (req: RequestExt, res: Response) => {
         res.send({ data, user });
     } catch (e) {
         handleHttp(res, "ERROR_GET_USERS");
+    }
+};
+
+// Contar una asignaturas
+const getCountItems = async (req: RequestExt, res: Response) => {
+    try {
+        const data = await getCountSubjects();
+        res.json( data );
+    } catch (e) {
+        handleHttp(res, "ERROR_GET_COUNT_USERS");
     }
 };
 
@@ -34,9 +44,12 @@ const getItem = async ({ params }: RequestExt, res: Response) => {
 // Insertar un registro en la BD
 const postItem = async ({ body }: RequestExt, res: Response) => {
     try {
-        
         const responseItem = await inserSubject(body);
-        res.send(responseItem);
+        if (responseItem) {
+            res.send(responseItem);
+        } else {
+            handleHttp(res, 'ERROR_POST_ITEM', 'No se pudo insertar el elemento');
+        }
     } catch (e: any) {
         if (e.name === 'ValidationError') {
             handleHttp(res, 'VALIDATION_ERROR', e.message);
@@ -45,6 +58,7 @@ const postItem = async ({ body }: RequestExt, res: Response) => {
         }
     }
 }
+
 
 
 const updateItem = async (req: RequestExt, res: Response) => {
@@ -84,4 +98,4 @@ const deleteItem = async (req: RequestExt, res: Response) => {
 }
 
     
-export { getItems, getItem, postItem, updateItem, deleteItem }; 
+export { getItems, getCountItems, getItem, postItem, updateItem, deleteItem }; 

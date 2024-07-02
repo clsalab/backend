@@ -24,6 +24,11 @@ const getPrograms = async () => {
     return responseItem;
 };
 
+const countPrograms = async () => {
+    const responseItem = await programModel.find({}).countDocuments();
+    return responseItem;
+};
+
 const getProgram = async (id:string) => {
     const responseItem = await programModel.findOne({ _id: id });
     return responseItem;
@@ -39,4 +44,24 @@ const deleteProgram = async (id:string)=> {
     const responseItem = await programModel.deleteOne({ _id: id });
     return responseItem;
 }
-export { inserProgram, getPrograms, getProgram, updateProgram, deleteProgram};
+
+const getAllProgramsWithSubjects = async () => {
+    try {
+        const programasConAsignaturas = await programModel.aggregate([
+            {
+                $lookup: {
+                    from: 'asignaturas', // Nombre de la colección de Asignatura
+                    localField: 'asignaturas', // Campo local de Programa
+                    foreignField: '_id', // Campo foráneo de Asignatura
+                    as: 'asignaturas' // Nombre del nuevo campo que contendrá las asignaturas
+                }
+            },
+            { $unwind: '$asignaturas'},
+        ]);
+        return programasConAsignaturas;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export { inserProgram, getPrograms, countPrograms, getProgram, updateProgram, deleteProgram, getAllProgramsWithSubjects};
